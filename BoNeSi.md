@@ -38,7 +38,47 @@ packetsទាំងអស់ដើម្បីបង្កើត TCP connections
 X6 1100Tជំនាន់ថ្មីៗនេះ ជាមួយ3.3GHz អ្នកអាចបង្កើត ៣០០,០០០pps (running on 2 cores)។
 
 `តើការវាយប្រហា*BoNeSi*ទទួលបានជោគជ័យដែរឫទេ?`
+
 បាទ ពួកគេពិតជាទទួលបានជោគជ័យខ្លាំងណាស់។ ការវាយប្រហា UDP/ICMP មានភាពងាយស្រួលក្នុងការ
 fill the bandwidth ហើយការវាយប្រហា HTTP-Flooding ធ្វើអោយwebserverដេកស្ដូកស្ដឹងយ៉ាងលឿន
 ផងដែរ។ យើងថែមទាំងបានធ្វើតេស្តBoNeSiប្រឆាំងតបនឹង state-of-the-art commercial DDoS
 mitigation systems ផងដែរ ហើយអាចទាំងcrashពួកគេ និងhiding the attack ពីការរកឃើញ។
+
+# ដំឡើងBoNeSi
+```
+:~$ git clone git@github.com:Markus-Go/bonesi.git
+:~$ cd bonesi
+:~$ ./configure
+:~$ make
+:~$ make install
+
+```
+
+# ប្រើប្រាស់
+```
+:~$ bonesi [OPTION...] <dst_ip:port>
+
+ Options:
+
+  -i, --ips=FILENAME               filename with ip list
+  -p, --protocol=PROTO             udp (default), icmp or tcp
+  -r, --send_rate=NUM              packets per second, 0 = infinite (default)
+  -s, --payload_size=SIZE          size of the paylod, (default: 32)
+  -o, --stats_file=FILENAME        filename for the statistics, (default: 'stats')
+  -c, --max_packets=NUM            maximum number of packets (requests at tcp/http), 0 = infinite (default)
+      --integer                    IPs are integers in host byte order instead of in dotted notation
+  -t, --max_bots=NUM               determine max_bots in the 24bit prefix randomly (1-256)
+  -u, --url=URL                    the url (default: '/') (only for tcp/http)
+  -l, --url_list=FILENAME          filename with url list (only for tcp/http)
+  -b, --useragent_list=FILENAME    filename with useragent list (only for tcp/http)
+  -d, --device=DEVICE              network listening device (only for tcp/http, e.g. eth1)
+  -m, --mtu=NUM                    set MTU, (default 1500). Currently only when using TCP.
+  -f, --frag=NUM                   set fragmentation mode (0=IP, 1=TCP, default: 0). Currently only when using TCP.
+  -v, --verbose                    print additional debug messages
+  -h, --help                       print help message and exit
+  
+  ```
+  
+  # Source
+  
+  https://github.com/Markus-Go/bonesi
